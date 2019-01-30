@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<features name="its-poc-${project.version}" xmlns="http://karaf.apache.org/xmlns/features/v1.4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.4.0 http://karaf.apache.org/xmlns/features/v1.4.0">
+
+    <repository>mvn:org.apache.camel.karaf/apache-camel/${camel.version}/xml/features</repository>
+    <repository>mvn:org.apache.activemq/activemq-karaf/${activemq.version}/xml/features</repository>
+    <repository>mvn:org.apache.karaf.features/spring-legacy/${karaf.version}/xml/features</repository>
+
+    <feature name="its-common" version="${project.version}">
+        <feature prerequisite="true">aries-blueprint</feature>
+        <feature>activemq-client</feature>
+        <feature>jms</feature>
+        <feature>camel-blueprint</feature>
+        <feature>activemq-camel</feature>
+        <feature>camel-jms</feature>
+        <configfile finalname="deploy/its-common.xml">mvn:com.its.poc/common/${project.version}/xml</configfile>
+        <capability>
+            osgi.service;objectClass=org.apache.aries.blueprint.NamespaceHandler;osgi.service.blueprint.namespace=http://camel.apache.org/schema/blueprint;effective:=active,
+            osgi.service;effective:=active;objectClass=javax.jms.ConnectionFactory
+        </capability>
+    </feature>
+
+    <feature name="its-http-main" version="${project.version}">
+        <feature prerequisite="true">its-common</feature>
+        <feature>camel-jetty</feature>
+        <bundle>mvn:com.its.poc/http/${project.version}</bundle>
+    </feature>
+
+</features>
