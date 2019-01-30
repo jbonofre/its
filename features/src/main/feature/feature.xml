@@ -7,10 +7,10 @@
 
     <feature name="its-common" version="${project.version}">
         <feature prerequisite="true">aries-blueprint</feature>
+        <feature>camel-jetty</feature>
         <feature>activemq-client</feature>
         <feature>jms</feature>
         <feature>camel-blueprint</feature>
-        <feature>activemq-camel</feature>
         <feature>camel-jms</feature>
         <configfile finalname="deploy/its-common.xml">mvn:com.its.poc/common/${project.version}/xml</configfile>
         <capability>
@@ -19,10 +19,14 @@
         </capability>
     </feature>
 
-    <feature name="its-http-main" version="${project.version}">
-        <feature prerequisite="true">its-common</feature>
-        <feature>camel-jetty</feature>
+    <feature name="its-req" version="${project.version}">
+        <feature>its-common</feature>
         <bundle>mvn:com.its.poc/http/${project.version}</bundle>
+    </feature>
+
+    <feature name="its-rsp" version="${project.version}">
+        <feature>its-common</feature>
+        <bundle>mvn:com.its.poc/jmsbridge/${project.version}</bundle>
     </feature>
 
 </features>

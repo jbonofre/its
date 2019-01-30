@@ -7,9 +7,9 @@ public class HttpEntryRouteBuilder extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         from("jetty:http://0.0.0.0:9090/its")
-                .id("http-entry-route")
+                .id("its-req-route")
                 .convertBodyTo(String.class)
-                .to("jms:queue:ITS_REQ?connectionFactory=itsCF&replyTo=ITS_RSP");
+                .inOut("jms:queue:ITS_REQ?connectionFactory=itsCF&replyTo=ITS_RSP&requestTimeout=10000");
     }
 
 }
