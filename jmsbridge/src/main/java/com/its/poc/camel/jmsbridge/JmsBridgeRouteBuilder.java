@@ -10,11 +10,7 @@ public class JmsBridgeRouteBuilder extends RouteBuilder {
     public void configure() throws Exception {
         from("jms:queue:ITS_REQ?connectionFactory=itsCF")
                 .id("its-rsp-route")
-                .process(new Processor() {
-                    public void process(Exchange exchange) throws Exception {
-                        exchange.getOut().setBody("Hello ITS", String.class);
-                    }
-                })
+                .process(new JsonMapperProcessor())
                 .to("jms:queue:ITS_RSP?connectionFactory=itsCF&disableReplyTo=true");
     }
 

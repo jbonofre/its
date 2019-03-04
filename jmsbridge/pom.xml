@@ -13,10 +13,29 @@
     <artifactId>jmsbridge</artifactId>
     <packaging>bundle</packaging>
 
+    <properties>
+        <jackson.version>2.9.7</jackson.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
     </dependencies>
 
@@ -27,6 +46,13 @@
                 <artifactId>maven-bundle-plugin</artifactId>
                 <inherited>true</inherited>
                 <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Private-Package>
+                            com.fasterxml.jackson*
+                        </Private-Package>
+                    </instructions>
+                </configuration>
             </plugin>
         </plugins>
     </build>
